@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Particulate Cloak — Eased Spring Dynamics</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #06070a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Container Stage */
+    .cloak-stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 50%, #0d111a 0%, #06070a 100%);
+      overflow: hidden;
+    }
+
+    /* Subtle ambient under-glow */
+    .ambient-underglow {
+      position: absolute;
+      width: min(80vw, 600px);
+      height: min(80vw, 600px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(236, 72, 153, 0.05) 45%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* UNDERNEATH: The Content Plate */
+    .content-plate {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      max-width: 960px;
+      pointer-events: none;
+    }
+
+    /* Gradient-clipped headline */
+    .plate-headline {
+      font-size: clamp(3rem, 8vw, 6.75rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 25%, #818cf8 50%, #c084fc 75%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Monospace caption */
+    .plate-caption {
+      font-family: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", Menlo, Consolas, monospace;
+      font-size: clamp(10px, 1.4vw, 13px);
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(148, 163, 184, 0.85);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .plate-caption .caption-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 10px #38bdf8;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(0.9); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    /* THE CLOAK: Canvas 2D overlay */
+    #cloak-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Interactive status indicator pill */
+    .status-hud {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      pointer-events: none;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      white-space: nowrap;
+      transition: opacity 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="cloak-stage" id="stage">
+    <!-- Ambient back-lighting -->
+    <div class="ambient-underglow" aria-hidden="true"></div>
+
+    <!-- UNDERNEATH: Revealed DOM content -->
+    <div class="content-plate" aria-label="Hidden revealed message">
+      <h1 class="plate-headline">
+        Beyond<br>The Veil
+      </h1>
+      <p class="plate-caption">
+        <span class="caption-dot" aria-hidden="true"></span>
+        <span>Wavefunction Unveiled &middot; Kinetic Mesh</span>
+      </p>
+    </div>
+
+    <!-- THE CLOAK: 2D Particle Canvas -->
+    <canvas id="cloak-canvas"></canvas>
+
+    <!-- Bottom Status / Hint -->
+    <div class="status-hud" id="status-hud">
+      MOVE CURSOR TO DISPERSE &middot; SPRING PULL 0.024 &middot; DAMP 0.86
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const canvas = document.getElementById('cloak-canvas');
+      const ctx = canvas.getContext('2d');
+      const hud = document.getElementById('status-hud');
+
+      // Viewport dimensions
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      // Particle data structures
+      let particles = [];
+      let step = 16;
+      let R = 200;
+
+      // Pointer states
+      const targetPointer = { x: width * 0.5, y: height * 0.5 };
+      const easedPointer = { x: width * 0.5, y: height * 0.5 };
+      let hasUserEntered = false;
+      let isTouchDevice = false;
+
+      // Lissajous autonomous breathing parameters
+      let lissajousTime = 0;
+
+      // Resize and canvas scale setup
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        ctx.scale(dpr, dpr);
+
+        // Repulsion radius: R = 0.34 * min(w, h)
+        R = 0.34 * Math.min(width, height);
+
+        // Grid step: max(9, min(w, h) / 22) px
+        step = Math.max(9, Math.min(width, height) / 22);
+
+        initParticles();
+      }
+
+      // Initialize grid particles
+      function initParticles() {
+        particles = [];
+
+        const cols = Math.ceil(width / step) + 2;
+        const rows = Math.ceil(height / step) + 2;
+
+        const startX = (width - (cols - 1) * step) * 0.5;
+        const startY = (height - (rows - 1) * step) * 0.5;
+
+        for (let i = 0; i < cols; i++) {
+          for (let j = 0; j < rows; j++) {
+            const homeX = startX + i * step;
+            const homeY = startY + j * step;
+
+            // Random radius between 1.0 and 2.6 px
+            const radius = 1.0 + Math.random() * 1.6;
+
+            particles.push({
+              homeX: homeX,
+              homeY: homeY,
+              x: homeX,
+              y: homeY,
+              vx: 0,
+              vy: 0,
+              radius: radius
+            });
+          }
+        }
+      }
+
+      // Pointer Event Handlers
+      function onPointerMove(e) {
+        hasUserEntered = true;
+        targetPointer.x = e.clientX;
+        targetPointer.y = e.clientY;
+      }
+
+      function onPointerEnter(e) {
+        hasUserEntered = true;
+        targetPointer.x = e.clientX;
+        targetPointer.y = e.clientY;
+      }
+
+      function onPointerLeave() {
+        if (!isTouchDevice) {
+          hasUserEntered = false;
+        }
+      }
+
+      // Touch events: keep drift active permanently on touch
+      function onTouchStart(e) {
+        isTouchDevice = true;
+        if (e.touches && e.touches.length > 0) {
+          targetPointer.x = e.touches[0].clientX;
+          targetPointer.y = e.touches[0].clientY;
+        }
+      }
+
+      function onTouchMove(e) {
+        isTouchDevice = true;
+        if (e.touches && e.touches.length > 0) {
+          targetPointer.x = e.touches[0].clientX;
+          targetPointer.y = e.touches[0].clientY;
+        }
+      }
+
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('pointerenter', onPointerEnter, { passive: true });
+      window.addEventListener('pointerleave', onPointerLeave);
+
+      window.addEventListener('touchstart', onTouchStart, { passive: true });
+      window.addEventListener('touchmove', onTouchMove, { passive: true });
+      window.addEventListener('resize', resize);
+
+      // Initial layout sizing
+      resize();
+
+      // Main Animation Loop
+      function render(now) {
+        requestAnimationFrame(render);
+
+        // Clear canvas
+        ctx.clearRect(0, 0, width, height);
+
+        // Lissajous autonomous breathing computation
+        lissajousTime += 0.013;
+        const ampX = width * 0.28;
+        const ampY = height * 0.23;
+        // Lissajous frequency ratio 3:2 creates an elegant continuous weaving knot
+        const lissajousX = width * 0.5 + Math.sin(lissajousTime * 0.9) * ampX;
+        const lissajousY = height * 0.5 + Math.sin(lissajousTime * 1.35) * ampY;
+
+        // Apply Lissajous when pointer has not entered, or blend permanently on touch
+        if (!hasUserEntered) {
+          targetPointer.x = lissajousX;
+          targetPointer.y = lissajousY;
+        } else if (isTouchDevice) {
+          // On touch, preserve subtle breathing drift overlaying the target
+          targetPointer.x += (lissajousX - targetPointer.x) * 0.04;
+          targetPointer.y += (lissajousY - targetPointer.y) * 0.04;
+        }
+
+        // Lerp pointer at 0.16
+        easedPointer.x += (targetPointer.x - easedPointer.x) * 0.16;
+        easedPointer.y += (targetPointer.y - easedPointer.y) * 0.16;
+
+        const epX = easedPointer.x;
+        const epY = easedPointer.y;
+        const pLen = particles.length;
+
+        // Render particles
+        for (let i = 0; i < pLen; i++) {
+          const p = particles[i];
+
+          // d = distance from the eased pointer
+          const dx = p.x - epX;
+          const dy = p.y - epY;
+          const d = Math.sqrt(dx * dx + dy * dy);
+
+          // If inside repulsion radius R
+          if (d < R) {
+            // f = (1 - d/R)^2 * 3.4
+            const ratio = 1 - d / R;
+            const f = ratio * ratio * 3.4;
+
+            // Push particle directly away from pointer along its own normal
+            const safeDist = d > 0.0001 ? d : 0.0001;
+            const nx = dx / safeDist;
+            const ny = dy / safeDist;
+
+            p.vx += nx * f;
+            p.vy += ny * f;
+          }
+
+          // Always pull it home: v += (home - pos) * 0.024
+          p.vx += (p.homeX - p.x) * 0.024;
+          p.vy += (p.homeY - p.y) * 0.024;
+
+          // Damp: v *= 0.86
+          p.vx *= 0.86;
+          p.vy *= 0.86;
+
+          // Integrate: pos += v
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Fade by displacement: alpha = max(0, 0.72 - distanceFromHome / 70)
+          const distHomeX = p.x - p.homeX;
+          const distHomeY = p.y - p.homeY;
+          const distFromHome = Math.sqrt(distHomeX * distHomeX + distHomeY * distHomeY);
+
+          const alpha = Math.max(0, 0.72 - distFromHome / 70);
+
+          // Draw particle if visible
+          if (alpha > 0.004) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, 6.2831853);
+            ctx.fillStyle = `rgba(226, 232, 240, ${alpha})`;
+            ctx.fill();
+          }
+        }
+      }
+
+      requestAnimationFrame(render);
+    })();
+  </script>
+</body>
+</html>
