@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ArrowDown, ArrowUp, Sparkles } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { moments, stats } from '../data'
@@ -9,24 +9,14 @@ import CountUpNumber from './CountUpNumber'
  * Achievements Component
  * - Verified count-up number animations on scroll (0 -> target with easeOutQuad).
  * - High-impact metric grid showing craft, prototypes, and production focus.
- * - Interactive and auto-advancing moments carousel with Framer Motion spring physics.
+ * - Manually controlled moments carousel with Framer Motion spring physics.
  */
 export default function Achievements() {
   const [offset, setOffset] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
   const rotate = (direction) => {
     setOffset((value) => (value + direction + moments.length) % moments.length)
   }
-
-  // Auto-advance carousel smoothly if not hovered
-  useEffect(() => {
-    if (!isAutoPlaying) return
-    const interval = setInterval(() => {
-      setOffset((prev) => (prev + 1) % moments.length)
-    }, 4500)
-    return () => clearInterval(interval)
-  }, [isAutoPlaying])
 
   const ordered = moments.map((_, index) => moments[(index + offset) % moments.length])
 
@@ -46,20 +36,14 @@ export default function Achievements() {
           <button
             type="button"
             aria-label="Previous moment"
-            onClick={() => {
-              setIsAutoPlaying(false)
-              rotate(-1)
-            }}
+            onClick={() => rotate(-1)}
           >
             <ArrowUp size={16} />
           </button>
           <button
             type="button"
             aria-label="Next moment"
-            onClick={() => {
-              setIsAutoPlaying(false)
-              rotate(1)
-            }}
+            onClick={() => rotate(1)}
           >
             <ArrowDown size={16} />
           </button>
@@ -82,11 +66,7 @@ export default function Achievements() {
       </div>
 
       {/* 3. Moments Row with Spring Rotation Physics */}
-      <div
-        className="moments-container"
-        onMouseEnter={() => setIsAutoPlaying(false)}
-        onMouseLeave={() => setIsAutoPlaying(true)}
-      >
+      <div className="moments-container">
         <motion.div layout className="moments-row">
           {ordered.map((moment) => (
             <motion.div

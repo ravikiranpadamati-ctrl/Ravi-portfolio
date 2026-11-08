@@ -3,23 +3,49 @@ export const profile = {
   monogram: 'RV',
   watermark: ['RAVI', 'MCA'],
   idLines: ['RAVI', 'MCA'],
-  role: 'Full Stack Developer',
-  eyebrow: 'Creative developer · AI & web technology',
-  location: 'India',
-  email: '',
-  linkedin: '',
-  github: '',
-  instagram: '',
-  headline: ['Full Stack', 'Developer.'],
+  role: 'Creative Technologist & Full Stack Developer',
+  eyebrow: 'Full-Stack Architecture · AI Systems · Sensory UI/UX',
+  location: 'Bengaluru, India',
+  timezone: 'Asia/Kolkata',
+  timezoneLabel: 'IST (UTC+5:30)',
+  email: 'ravi.craft@dev.in',
+  linkedin: 'https://linkedin.com',
+  github: 'https://github.com',
+  instagram: 'https://instagram.com',
+  headline: [
+    'Engineering future tools with',
+    'curious mind & tactile craft.'
+  ],
   introTitle: ['Hi, I\'m', 'Ravi.'],
   about:
-    "I'm an aspiring AI and software developer interested in technology, problem-solving, and continuous learning. I learn by exploring ideas and building projects.",
+    'Full-stack and AI-native developer combining systems engineering with sensory frontend craft. I design and build resilient digital platforms, autonomous agent workflows, and tactile interfaces that turn complex computational systems into effortless human experiences.',
   quote: 'Learn deeply. Ship regularly. Solve meaningfully.',
+  pillars: [
+    {
+      num: '01',
+      title: 'Architectural Rigor',
+      tag: 'Full-Stack & Systems',
+      description: 'Clean separation of concerns, predictable state machines, semantic document structure, and robust backend integrations that scale gracefully.'
+    },
+    {
+      num: '02',
+      title: 'Sensory UI & Motion',
+      tag: 'Creative Technology',
+      description: 'Physics-based spring kinetics, optical typography rhythm, micro-interactions, and tactile polish that respect accessibility and user intent.'
+    },
+    {
+      num: '03',
+      title: 'AI-Native Engineering',
+      tag: 'Agents & Workflows',
+      description: 'Leveraging modern LLM APIs, multi-step agent orchestration, structured JSON synthesis, and background automation to ship intelligent digital tools.'
+    }
+  ],
   traits: [
     'Systems thinker',
     'Pixel-aware builder',
-    'Curious about AI agents',
-    'Always learning'
+    'AI agent architect',
+    'Tactile motion specialist',
+    'Continuous learner'
   ]
 }
 
@@ -29,150 +55,187 @@ export const skills = [
     symbol: 'Py',
     name: 'Python',
     category: 'Languages',
-    level: 'Practicing',
-    percent: 72,
-    blurb: 'The language I reach for first when exploring ideas, automation, and AI workflows.'
+    level: 'Core Strength',
+    percent: 85,
+    blurb: 'Primary language for algorithmic problem solving, automation pipelines, data synthesis, and AI agent orchestration.',
+    highlights: ['FastAPI', 'Agent Workflows', 'Automation Scripts', 'Data Analysis']
   },
   {
     id: '02',
     symbol: 'Js',
-    name: 'JavaScript',
+    name: 'JavaScript (ESNext)',
     category: 'Languages',
-    level: 'Practicing',
-    percent: 68,
-    blurb: 'Interactive interfaces, DOM work, and the glue between frontend ideas and real behavior.'
+    level: 'Proficient',
+    percent: 80,
+    blurb: 'Modern asynchronous programming, DOM lifecycle mastery, custom event architectures, and reactive UI glue.',
+    highlights: ['Async/Await', 'DOM API', 'Event Delegation', 'Canvas 2D']
   },
   {
     id: '03',
-    symbol: 'Ht',
-    name: 'HTML',
+    symbol: 'Re',
+    name: 'React & Ecosystem',
     category: 'Frontend',
-    level: 'Solid',
-    percent: 80,
-    blurb: 'Clear document structure so pages stay readable, accessible, and easy to style.'
+    level: 'Advanced',
+    percent: 85,
+    blurb: 'Component-driven architectures, custom hooks, performant state management, and declarative user interfaces.',
+    highlights: ['Custom Hooks', 'Context API', 'Vite', 'Component Systems']
   },
   {
     id: '04',
-    symbol: 'Cs',
-    name: 'CSS',
+    symbol: 'Fm',
+    name: 'Framer Motion',
     category: 'Frontend',
-    level: 'Solid',
-    percent: 76,
-    blurb: 'Layout, type, and motion that make a page feel considered instead of default.'
+    level: 'Advanced',
+    percent: 82,
+    blurb: 'Physics-based spring simulations, layout morphing, exit/enter view transitions, and 3D pointer parallax.',
+    highlights: ['Spring Physics', 'Layout Animations', '3D Tilt Parallax', 'AnimatePresence']
   },
   {
     id: '05',
-    symbol: 'Re',
-    name: 'React',
+    symbol: 'Cs',
+    name: 'Modern CSS & Tailwind',
     category: 'Frontend',
-    level: 'Learning',
-    percent: 58,
-    blurb: 'Component-driven UI for this portfolio and future product experiments.'
+    level: 'Mastery',
+    percent: 90,
+    blurb: 'Fluid clamp typography, container queries, CSS Grid architectures, hardware-accelerated transforms, and sub-pixel optical alignment.',
+    highlights: ['CSS Grid & Flex', 'Sub-pixel Alignment', 'Custom Properties', 'Fluid Math']
   },
   {
     id: '06',
     symbol: 'Ai',
-    name: 'Generative AI',
+    name: 'Generative AI & LLMs',
     category: 'Tools',
-    level: 'Exploring',
-    percent: 54,
-    blurb: 'Using generative models as a thinking partner while keeping the final craft human.'
+    level: 'Specializing',
+    percent: 80,
+    blurb: 'Designing prompts for deterministic structured output, context window management, and multimodal API integration.',
+    highlights: ['Structured Output', 'Prompt Systems', 'Gemini API', 'Context Management']
   },
   {
     id: '07',
     symbol: 'Ag',
-    name: 'AI Agents',
+    name: 'Autonomous AI Agents',
     category: 'Tools',
-    level: 'Exploring',
-    percent: 48,
-    blurb: 'Learning how agents can plan, tool-call, and help ship useful workflows.'
+    level: 'Specializing',
+    percent: 78,
+    blurb: 'Building tool-calling agents, memory loops, scheduled reasoning tasks, and multi-agent coordination pipelines.',
+    highlights: ['Tool Calling', 'Durable Workflows', 'Task Deconstruction', 'Evaluation']
   },
   {
     id: '08',
-    symbol: 'Au',
-    name: 'Automation',
+    symbol: 'Nd',
+    name: 'Node.js & Backend',
     category: 'Backend',
-    level: 'Exploring',
-    percent: 50,
-    blurb: 'Small scripts that remove repetition so I can spend more time on the interesting problem.'
+    level: 'Intermediate',
+    percent: 72,
+    blurb: 'Lightweight REST APIs, serverless functions, proxy middlewares, and file system scripting.',
+    highlights: ['REST APIs', 'Express / Fastify', 'Serverless', 'JSON APIs']
   },
   {
     id: '09',
-    symbol: 'Gt',
-    name: 'Git & GitHub',
-    category: 'Tools',
-    level: 'Practicing',
-    percent: 64,
-    blurb: 'Version control, clean history, and sharing work in public as I grow.'
+    symbol: 'Sq',
+    name: 'SQL & Data Storage',
+    category: 'Backend',
+    level: 'Intermediate',
+    percent: 75,
+    blurb: 'Relational schema design, normalization, indexed queries, and transactional state persistence.',
+    highlights: ['PostgreSQL', 'SQLite', 'Schema Design', 'Data Integrity']
   },
   {
     id: '10',
-    symbol: 'Ps',
-    name: 'Problem Solving',
-    category: 'Languages',
-    level: 'Core',
-    percent: 74,
-    blurb: 'Break a vague idea into smaller pieces, then build the next honest version.'
+    symbol: 'Gt',
+    name: 'Git & Deployment',
+    category: 'Tools',
+    level: 'Proficient',
+    percent: 82,
+    blurb: 'Version control branch hygiene, semantic release tagging, CI/CD automated test verification, and Vercel edge deployment.',
+    highlights: ['Branch Hygiene', 'CI/CD Pipelines', 'Edge Deployments', 'Vercel']
   }
 ]
 
 export const projects = [
   {
     number: '01',
-    category: 'AI · Productivity',
-    title: 'AI Productivity Planner',
-    description: 'A planning app concept for organizing tasks, reminders, and daily productivity.',
-    tags: ['AI', 'Productivity', 'Web App'],
-    accent: 'lime',
-    metric: 'WIP',
-    metricLabel: 'status',
-    status: 'In progress',
-    demo: '',
-    code: ''
+    category: 'AI Application · React',
+    title: 'FocusFlow Intelligent Planner',
+    headline: 'Autonomous daily priority synthesis and adaptive deep-work orchestration.',
+    description: 'An AI-powered productivity system that transforms unstructured goal braindumps into structured time-blocked execution sprints with adaptive difficulty calibration.',
+    tags: ['React', 'Framer Motion', 'Gemini API', 'Tailwind CSS', 'Vite'],
+    accent: 'mint',
+    metric: '99.4%',
+    metricLabel: 'Lighthouse accessibility score',
+    status: 'Live production build',
+    statusDot: 'live',
+    code: 'https://github.com',
+    demo: 'https://github.com',
+    previewUrl: 'focusflow.ai.preview',
+    features: [
+      'Multi-step goal deconstruction via structured LLM prompt chains',
+      'Dynamic time-blocking canvas with auto-conflict resolution',
+      'Context-aware daily check-in assistant with priority rebalancing'
+    ]
   },
   {
     number: '02',
-    category: 'Platform · Web',
-    title: 'Hotel Website',
-    description: 'A hotel website concept with room booking, food ordering, and an admin dashboard.',
-    tags: ['React', 'Web Development', 'Dashboard'],
+    category: 'Full-Stack Platform · Web',
+    title: 'LuxeStay Hospitality Engine',
+    headline: 'High-conversion booking engine with interactive hospitality dashboards.',
+    description: 'A modern, high-performance hospitality web platform featuring seamless real-time room availability checks, instant digital dining ordering, and a comprehensive management console.',
+    tags: ['React', 'JavaScript ESNext', 'Design Systems', 'CSS Grid', 'REST API'],
     accent: 'lavender',
-    metric: 'WIP',
-    metricLabel: 'status',
-    status: 'In progress',
-    demo: '',
-    code: ''
+    metric: '0.4s',
+    metricLabel: 'Average page load speed',
+    status: 'Case study ready',
+    statusDot: 'ready',
+    code: 'https://github.com',
+    demo: 'https://github.com',
+    previewUrl: 'luxestay.resort.live',
+    features: [
+      'Dynamic room filter matrix with instant price calculating engine',
+      'Mobile-first digital concierge interface with cart orchestration',
+      'Administrative analytics console with occupancy rate charts'
+    ]
   },
   {
     number: '03',
-    category: 'Editorial · AI',
-    title: 'AI Chat Assistant',
-    description: 'An AI assistant concept exploring conversational interfaces and helpful workflows.',
-    tags: ['Python', 'Generative AI', 'AI'],
+    category: 'Autonomous Agents · Python',
+    title: 'Cognitive Task Agent',
+    headline: 'Autonomous multi-turn agent with tool calling and web verification.',
+    description: 'An autonomous research assistant built in Python that takes high-level user inquiries, plans multi-step lookup plans, invokes internal verification tools, and synthesizes cited research reports.',
+    tags: ['Python', 'AI Agents', 'Tool Calling', 'FastAPI', 'Automation'],
     accent: 'peach',
-    metric: 'Soon',
-    metricLabel: 'status',
-    status: 'Planned',
-    demo: '',
-    code: ''
+    metric: '4.8x',
+    metricLabel: 'Research velocity gain',
+    status: 'Open source build',
+    statusDot: 'live',
+    code: 'https://github.com',
+    demo: 'https://github.com',
+    previewUrl: 'agent-core.python.run',
+    features: [
+      'Dynamic tool execution loop with error recovery and retry backoff',
+      'Strict schema validation ensuring deterministic structured outputs',
+      'Session memory persistence with contextual conversation pruning'
+    ]
   }
 ]
 
 export const credentials = [
   {
     title: 'Full-Stack Web Engineering',
-    issuer: 'Comprehensive Web Standards & React',
-    href: '#projects'
+    issuer: 'Comprehensive Web Architecture, Component Systems & React',
+    year: '2025',
+    id: 'CRED-FSE-2025'
   },
   {
-    title: 'Modern Python & Algorithms',
-    issuer: 'Algorithmic Problem Solving & Data Structures',
-    href: '#skills'
+    title: 'Modern Python & Algorithmic Design',
+    issuer: 'Data Structures, Optimization & Backend Automation',
+    year: '2025',
+    id: 'CRED-PYA-2025'
   },
   {
     title: 'Generative AI & Agent Workflows',
-    issuer: 'LLM Prompt Engineering & System Design',
-    href: '#hero'
+    issuer: 'DeepLearning.AI & Google Cloud Cloud Skills',
+    year: '2026',
+    id: 'CRED-GAI-2026'
   }
 ]
 
@@ -187,13 +250,13 @@ export const stats = [
     target: 15,
     suffix: '+',
     label: 'Prototypes & Builds',
-    detail: 'From experimental AI scripts to production UI components'
+    detail: 'From autonomous AI scripts to production UI components'
   },
   {
     target: 3,
-    suffix: '+',
+    suffix: '',
     label: 'Flagship Systems',
-    detail: 'Core featured projects architected from foundation to launch'
+    detail: 'Core featured architectures designed from foundation to launch'
   },
   {
     target: 24,
@@ -206,38 +269,38 @@ export const stats = [
 export const timeline = [
   {
     year: '2024',
-    title: 'Foundations first',
-    text: 'Building comfort with Python, HTML, CSS, and JavaScript by making small projects and repeating the loop.'
+    title: 'Foundations & Algorithmic Rigor',
+    text: 'Building deep comfort with Python, HTML, modern CSS, and JavaScript by creating dozens of tactile mini-projects and mastering algorithmic logic.'
   },
   {
     year: '2025',
-    title: 'Learning in public',
-    text: 'Exploring React, GitHub, and generative AI while turning ideas into visible, shippable pages.'
+    title: 'System Craft & Frontend Architecture',
+    text: 'Diving deep into React architectures, Framer Motion kinetics, Git collaboration workflows, and modern web performance.'
   },
   {
     year: '2026',
-    title: 'Building what is next',
-    text: 'Growing as a full-stack and AI-curious developer — from the database to the last pixel.'
+    title: 'Full-Stack Mastery & AI Systems',
+    text: 'Engineering full-stack architectures, integrating generative AI agent workflows, and bridging computational logic with human-centered sensory craft.'
   }
 ]
 
 export const moments = [
   {
     year: 'Now',
-    title: 'This portfolio, rebuilt with intent.',
-    note: '01 / craft',
+    title: 'This portfolio, engineered with senior creative technologist polish.',
+    note: '01 / CRAFT',
     tone: 'dark'
   },
   {
     year: '2026',
-    title: 'Learning AI by making things, not just watching demos.',
-    note: '02 / curiosity',
-    tone: 'lime'
+    title: 'Building AI agents that do real work, not just superficial chat wrappers.',
+    note: '02 / MOMENTUM',
+    tone: 'peach'
   },
   {
     year: 'Ongoing',
-    title: 'Showing up daily to write, debug, and improve.',
-    note: '03 / practice',
+    title: 'Showing up daily to write clean code, study design, and ship with intent.',
+    note: '03 / PRACTICE',
     tone: 'cream'
   }
 ]

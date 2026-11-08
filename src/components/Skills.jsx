@@ -40,7 +40,8 @@ export default function Skills() {
             aria-pressed={filter === item}
             onClick={() => {
               setFilter(item)
-              const nextVisible = item === 'All' ? skills : skills.filter((skill) => skill.category === item)
+              const nextVisible =
+                item === 'All' ? skills : skills.filter((skill) => skill.category === item)
               setSelectedId(nextVisible[0].id)
             }}
           >

@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0A0C0E">
+    <meta name="description" content="P Ravi Kiran — independent creative label.">
+    <title>P RAVI KIRAN — Independent Label</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: dark;
+        --ground: #0A0C0E;
+        --ground-2: #101317;
+        --ink: #EDE7DC;
+        --ink-2: #9EA5A8;
+        --muted: #6C7378;
+        --amber: #E8913C;
+        --teal: #2E6B72;
+        --line: rgba(237, 231, 220, .13);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: 'Sora', sans-serif;
+        background: var(--ground);
+        color: var(--ink);
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html { background: var(--ground); scroll-behavior: auto; }
+      body { margin: 0; background: var(--ground); }
+      a { color: inherit; text-decoration: none; }
+      button { color: inherit; font: inherit; }
+      :focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+      .display { font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: -.03em; }
+      .eyebrow, .small-type {
+        font-family: 'Sora', sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        line-height: 1.6;
+        text-transform: uppercase;
+      }
+      .container { width: min(100% - 112px, 1440px); margin-inline: auto; }
+
+      .site-nav {
+        position: fixed;
+        z-index: 30;
+        inset: 0 0 auto;
+        display: grid;
+        height: 58px;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding-inline: clamp(18px, 4vw, 58px);
+        border-bottom: 1px solid var(--line);
+        background: rgba(10, 12, 14, .82);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+      .wordmark {
+        display: inline-flex;
+        width: fit-content;
+        align-items: baseline;
+        gap: 5px;
+        font: 800 15px/.9 'Syne', sans-serif;
+        letter-spacing: -.03em;
+        white-space: nowrap;
+      }
+      .wordmark-period { color: var(--amber); }
+      .nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 42px); }
+      .nav-links a, .nav-cta { font-size: 10.5px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+      .nav-links a { color: var(--ink-2); transition: color 1s var(--ease); }
+      .nav-links a:hover { color: var(--amber); }
+      .nav-cta {
+        justify-self: end;
+        padding: 9px 18px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        transition: border-color 1s var(--ease), color 1s var(--ease);
+      }
+      .nav-cta:hover { border-color: var(--amber); color: var(--amber); }
+
+      .portal { position: relative; height: 250vh; background: var(--ground); }
+      .portal-stage {
+        position: sticky;
+        top: 0;
+        isolation: isolate;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      .portal-photo, .portal-art, .portal-duotone, .portal-veil { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .portal-photo {
+        z-index: -5;
+        object-fit: cover;
+        object-position: center 26%;
+        opacity: 1;
+        transform: translateY(clamp(28px, 6vh, 52px)) scale(1.08);
+        transform-origin: center top;
+      }
+      .portal-art {
+        z-index: -4;
+        object-fit: cover;
+        opacity: .22;
+        transform: scale(1);
+        transform-origin: center;
+        will-change: transform;
+        -webkit-mask-image: radial-gradient(ellipse 20% 30% at 50% 34%, transparent 65%, #000 100%);
+        mask-image: radial-gradient(ellipse 20% 30% at 50% 34%, transparent 65%, #000 100%);
+      }
+      .portal-duotone {
+        z-index: -3;
+        background:
+          radial-gradient(ellipse at 18% 72%, rgba(232, 145, 60, .46), transparent 48%),
+          radial-gradient(ellipse at 82% 30%, rgba(46, 107, 114, .58), transparent 50%);
+        mix-blend-mode: overlay;
+        opacity: .25;
+        will-change: opacity;
+      }
+      .portal-veil {
+        z-index: -2;
+        pointer-events: none;
+        background: radial-gradient(ellipse at center, transparent 22%, rgba(10, 12, 14, .5) 100%);
+      }
+      .portal-panel {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        width: 51%;
+        height: 100%;
+        background: var(--ground);
+        will-change: transform;
+      }
+      .portal-panel-left { left: 0; transform: translateX(-205%); }
+      .portal-panel-right { right: 0; transform: translateX(205%); }
+      .portal-dot {
+        position: absolute;
+        z-index: 3;
+        top: 50%;
+        left: 50%;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        will-change: transform;
+      }
+      .portal-dot-amber { background: var(--amber); }
+      .portal-dot-teal { background: var(--teal); }
+      .portal-center {
+        position: absolute;
+        z-index: 4;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+      }
+      .portal-wordmark {
+        display: inline-flex;
+        align-items: baseline;
+        gap: .12em;
+        color: var(--ink);
+        opacity: .88;
+        font: 800 clamp(20px, 6.5vw, 124px)/.85 'Syne', sans-serif;
+        letter-spacing: -.06em;
+        transform: scale(1.25);
+        white-space: nowrap;
+        will-change: transform, letter-spacing;
+      }
+      .portal-wordmark-first, .portal-wordmark-last { display: inline-block; will-change: transform; }
+      .portal-wordmark-first { transform: translateX(max(-50%, -2.5vw)); }
+      .portal-wordmark-last { transform: translateX(min(50%, 2.5vw)); }
+      .portal-wordmark-last { color: var(--amber); }
+      .corner-meta {
+        position: absolute;
+        z-index: 5;
+        display: flex;
+        min-height: 16px;
+        align-items: center;
+        gap: 9px;
+        color: var(--ink-2);
+        font-size: 9px;
+        letter-spacing: .15em;
+        line-height: 1.5;
+        pointer-events: none;
+      }
+      .corner-meta::before { width: 5px; height: 5px; flex: 0 0 auto; border-radius: 50%; background: var(--amber); content: ''; }
+      .corner-top-left { top: 78px; left: clamp(18px, 4vw, 58px); }
+      .corner-bottom-left { bottom: 30px; left: clamp(18px, 4vw, 58px); }
+      .portal-dot-amber { transform: translate(calc(-50% - 38vw), calc(-50% + 32vh)); }
+      .portal-dot-teal { transform: translate(calc(-50% + 38vw), calc(-50% - 32vh)); }
+      .portal-js .portal-art { transform: scale(1.15); }
+      .portal-js .portal-duotone { opacity: 0; }
+      .portal-js .portal-panel-left, .portal-js .portal-panel-right { transform: translateX(0); }
+      .portal-js .portal-wordmark { transform: scale(1); letter-spacing: -.02em; }
+      .portal-js .portal-wordmark-first, .portal-js .portal-wordmark-last { transform: translateX(0); }
+      .portal-js .portal-dot-amber, .portal-js .portal-dot-teal { transform: translate(-50%, -50%); }
+
+      .statement {
+        position: relative;
+        display: flex;
+        min-height: 100svh;
+        align-items: center;
+        overflow: hidden;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: var(--ground-2);
+      }
+      .statement-inner { position: relative; z-index: 2; width: min(100% - 112px, 1440px); margin-inline: auto; padding-block: 100px; }
+      .statement .eyebrow { margin: 0 0 28px; color: var(--ink-2); }
+      .statement-copy {
+        max-width: 22ch;
+        margin: 0;
+        font: 600 clamp(24px, 3.6vw, 52px)/1.16 'Syne', sans-serif;
+        letter-spacing: -.035em;
+      }
+      .statement-copy em { color: var(--amber); font-style: normal; }
+      .statement-index {
+        position: absolute;
+        z-index: 0;
+        right: 5vw;
+        bottom: -14vw;
+        color: transparent;
+        font: 800 clamp(360px, 60vw, 900px)/.8 'Syne', sans-serif;
+        letter-spacing: -.09em;
+        -webkit-text-stroke: 1px rgba(237, 231, 220, .08);
+        user-select: none;
+        will-change: transform;
+      }
+      .orbit-image {
+        position: absolute;
+        z-index: 1;
+        top: 20%;
+        right: -7vw;
+        width: clamp(190px, 27vw, 390px);
+        aspect-ratio: 1;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        opacity: .26;
+        will-change: transform;
+      }
+      .orbit-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
+
+      .releases { padding-block: clamp(100px, 13vw, 190px); }
+      .releases-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(50px, 10vw, 150px); align-items: center; }
+      .releases-copy .eyebrow { margin: 0 0 20px; color: var(--teal); }
+      .releases-copy h2 { max-width: 8ch; margin: 0; font: 700 clamp(46px, 7vw, 94px)/.92 'Syne', sans-serif; letter-spacing: -.05em; }
+      .releases-copy > p:not(.eyebrow) { max-width: 36ch; margin: 26px 0 30px; color: var(--ink-2); font-size: 15px; line-height: 1.8; }
+      .release-actions { display: flex; flex-wrap: wrap; gap: 22px; }
+      .action-link { display: inline-flex; align-items: center; gap: 12px; padding-bottom: 9px; border-bottom: 1px solid var(--amber); font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; transition: color 1s var(--ease); }
+      .action-link:hover { color: var(--amber); }
+      .lanyard-column { min-width: 0; }
+      .lanyard-stage {
+        position: relative;
+        display: flex;
+        width: min(100%, 560px);
+        height: 560px;
+        align-items: flex-start;
+        justify-content: center;
+        gap: clamp(14px, 4vw, 44px);
+        margin-inline: auto;
+        perspective: 1100px;
+        isolation: isolate;
+      }
+      .lanyard-rig {
+        position: relative;
+        flex: 0 1 clamp(142px, 18vw, 224px);
+        width: clamp(142px, 18vw, 224px);
+        height: 100%;
+        transform: translate3d(var(--drag-x, 0px), var(--drag-y, 0px), 0) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+        transform-origin: 50% 12px;
+        transform-style: preserve-3d;
+        touch-action: none;
+        cursor: grab;
+        will-change: transform;
+      }
+      .lanyard-rig:active { cursor: grabbing; }
+      .lanyard-sway {
+        position: absolute;
+        inset: 0;
+        transform: translate3d(0, var(--bob, 0px), 0) rotateZ(var(--swing, 0deg));
+        transform-origin: 50% 0;
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+      .lanyard-ribbon {
+        position: absolute;
+        top: -165px;
+        left: 50%;
+        width: 43px;
+        height: 348px;
+        transform: translateX(-50%);
+        border: 1px solid rgba(225, 228, 230, .32);
+        border-bottom: 0;
+        border-radius: 4px 4px 0 0;
+        background-color: #202327;
+        background-image:
+          repeating-linear-gradient(90deg, rgba(255,255,255,.1) 0 1px, rgba(0,0,0,.16) 1px 3px, transparent 3px 5px),
+          repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px);
+        box-shadow: inset 5px 0 8px rgba(255,255,255,.035), inset -5px 0 8px rgba(0,0,0,.25);
+      }
+      .lanyard-hardware {
+        position: absolute;
+        z-index: 4;
+        top: 100px;
+        left: 50%;
+        width: 68px;
+        height: 112px;
+        overflow: visible;
+        transform: translateX(-50%) translateZ(12px);
+        filter: drop-shadow(0 3px 2px rgba(0,0,0,.48));
+        pointer-events: none;
+      }
+      .lanyard-badge {
+        position: absolute;
+        top: 180px;
+        left: 0;
+        display: flex;
+        width: 100%;
+        aspect-ratio: 0.633;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 15px 14px 13px;
+        border: 1px solid rgba(255,255,255,.55);
+        border-radius: 17px;
+        background: linear-gradient(145deg, #ed2630 0%, #d71925 48%, #b8121e 100%);
+        box-shadow: 0 22px 42px rgba(0,0,0,.43), 0 3px 7px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.65);
+        color: #fff;
+        transform: translateZ(4px);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+      .lanyard-badge::before {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        background:
+          linear-gradient(118deg, rgba(255,255,255,.22), transparent 25% 63%, rgba(80,0,0,.12)),
+          radial-gradient(ellipse at 50% -10%, rgba(255,255,255,.2), transparent 58%);
+        content: '';
+        pointer-events: none;
+      }
+      .badge-hole {
+        position: absolute;
+        z-index: 5;
+        top: -7px;
+        left: 50%;
+        width: 14px;
+        height: 14px;
+        transform: translateX(-50%);
+        border: 2px solid rgba(255,255,255,.9);
+        border-radius: 50%;
+        background: #850d17;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.65), 0 0 0 2px rgba(164,16,27,.62);
+      }
+      .badge-top, .badge-bottom, .badge-identity, .badge-back-center, .badge-qr-wrap {
+        position: relative;
+        z-index: 1;
+      }
+      .badge-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 6px;
+      }
+      .badge-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        font: 800 17px/.9 'Syne', sans-serif;
+        letter-spacing: -.06em;
+      }
+      .badge-brand small, .badge-event, .badge-bottom, .badge-department {
+        font-size: 6px;
+        font-weight: 600;
+        letter-spacing: .13em;
+        line-height: 1.45;
+        text-transform: uppercase;
+      }
+      .badge-brand small { font: 600 5px/1.3 'Sora', sans-serif; letter-spacing: .12em; }
+      .badge-event { max-width: 82px; padding-top: 2px; text-align: right; }
+      .badge-avatar {
+        display: block;
+        width: 76px;
+        height: 94px;
+        align-self: center;
+        margin-top: auto;
+        border: 2px solid rgba(255,255,255,.95);
+        border-radius: 50% / 44%;
+        object-fit: cover;
+        object-position: 50% 28%;
+        box-shadow: 0 4px 12px rgba(74,0,0,.26);
+      }
+      .badge-identity { margin-top: 10px; text-align: center; }
+      .badge-identity h3 {
+        margin: 0;
+        font: 800 clamp(15px, 1.55vw, 19px)/1 'Syne', sans-serif;
+        letter-spacing: -.045em;
+        white-space: nowrap;
+      }
+      .badge-identity p {
+        margin: 5px 0 0;
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: .04em;
+        line-height: 1.45;
+        opacity: .9;
+      }
+      .badge-bottom {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 6px;
+        margin-top: auto;
+        padding-top: 8px;
+      }
+      .badge-bottom strong { font: 800 17px/.8 'Syne', sans-serif; letter-spacing: -.07em; }
+      .badge-contours {
+        position: absolute;
+        z-index: 1;
+        right: -9%;
+        bottom: -3%;
+        width: 75%;
+        height: 29%;
+        opacity: .46;
+        pointer-events: none;
+      }
+      .lanyard-badge-back { align-items: stretch; text-align: center; }
+      .lanyard-badge-back .badge-top { text-align: left; }
+      .badge-back-center { display: grid; flex: 1; align-content: center; justify-items: center; padding-top: 12px; }
+      .badge-team-mark {
+        margin: 0;
+        font: 800 clamp(22px, 2.8vw, 32px)/.9 'Syne', sans-serif;
+        letter-spacing: -.07em;
+      }
+      .badge-department { margin: 7px 0 0; font-size: 7px; }
+      .badge-qr-wrap { display: grid; justify-items: center; gap: 7px; margin: 0 auto 15px; }
+      .badge-qr-frame { width: 70px; height: 70px; padding: 5px; border: 1px solid rgba(255,255,255,.9); }
+      .badge-qr { display: block; width: 100%; height: 100%; background: #fff; }
+      .badge-qr-label { font-size: 5px; font-weight: 600; letter-spacing: .16em; }
+      .badge-back-footer {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-top: auto;
+        font-size: 6px;
+        font-weight: 600;
+        letter-spacing: .1em;
+        text-align: left;
+        text-transform: uppercase;
+      }
+      .badge-back-footer strong { font: 800 16px/.8 'Syne', sans-serif; letter-spacing: -.06em; }
+      .lanyard-caption { display: flex; justify-content: space-between; gap: 16px; margin-top: 8px; color: var(--muted); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
+      .lanyard-caption span:last-child { text-align: right; }
+
+      .roster, .dates { padding-block: clamp(90px, 11vw, 150px); border-top: 1px solid var(--line); }
+      .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 42px; }
+      .section-head .eyebrow { margin: 0; color: var(--teal); }
+      .section-head h2 { margin: 12px 0 0; font: 700 clamp(38px, 5vw, 68px)/.95 'Syne', sans-serif; letter-spacing: -.045em; }
+      .section-note { margin: 0; color: var(--muted); }
+      .roster-row {
+        display: grid;
+        grid-template-columns: minmax(140px, .7fr) 2fr minmax(80px, .5fr);
+        align-items: center;
+        gap: 24px;
+        min-height: 112px;
+        border-top: 1px solid var(--line);
+      }
+      .roster-row:last-child { border-bottom: 1px solid var(--line); }
+      .roster-label { color: var(--amber); }
+      .roster-name { margin: 0; font: 600 clamp(22px, 3vw, 38px)/1 'Syne', sans-serif; letter-spacing: -.035em; }
+      .roster-count { justify-self: end; color: var(--ink-2); text-align: right; }
+      .dates-table { width: 100%; border-collapse: collapse; text-align: left; }
+      .dates-table th { padding: 14px 12px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 9px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; }
+      .dates-table td { padding: 24px 12px; border-bottom: 1px solid var(--line); color: var(--ink-2); font-size: 12px; }
+      .dates-table td:first-child { color: var(--ink); font: 600 clamp(18px, 2.4vw, 28px)/1 'Syne', sans-serif; letter-spacing: -.025em; }
+      .dates-table td:last-child { color: var(--teal); }
+
+      .close { position: relative; overflow: hidden; padding: clamp(70px, 9vw, 120px) 0 0; border-top: 1px solid var(--line); background: var(--ground-2); }
+      .close-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; padding-bottom: 65px; }
+      .close-copy .eyebrow { margin: 0 0 18px; color: var(--amber); }
+      .close-copy h2 { max-width: 11ch; margin: 0; font: 700 clamp(42px, 7vw, 90px)/.9 'Syne', sans-serif; letter-spacing: -.05em; }
+      .close-copy p { margin: 18px 0 0; color: var(--muted); font-size: 10px; letter-spacing: .1em; }
+      .close-actions { display: flex; flex-wrap: wrap; gap: 24px; padding-bottom: 4px; }
+      .close-footer { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }
+      .close-wordmark { overflow: hidden; height: clamp(110px, 23vw, 300px); margin: 20px 0 -7vw; color: var(--ink); font: 800 clamp(120px, 25vw, 360px)/.8 'Syne', sans-serif; letter-spacing: -.09em; white-space: nowrap; transform: translateY(10%); }
+      .close-wordmark span { color: var(--amber); }
+
+      .reveal { opacity: 1; transform: none; }
+      .motion-enabled .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+      .motion-enabled .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+      @media (max-width: 760px) {
+        .container, .statement-inner { width: calc(100% - 40px); }
+        .site-nav {
+          grid-template-columns: minmax(0, 1fr) auto;
+          column-gap: 10px;
+          padding-inline: clamp(12px, 4vw, 18px);
+        }
+        .nav-links { display: none; }
+        .nav-cta { padding: 8px 12px; }
+        .portal-wordmark { gap: .08em; }
+        .corner-meta { max-width: 55vw; font-size: 8px; letter-spacing: .11em; }
+        .corner-bottom-left { display: none; }
+        .statement-inner { padding-block: 80px; }
+        .statement-index { right: -8vw; bottom: -8vw; font-size: 72vw; }
+        .orbit-image { top: auto; right: -24vw; bottom: 10%; width: 58vw; }
+        .releases-layout { grid-template-columns: 1fr; gap: 50px; }
+        .releases-copy h2 { max-width: 10ch; }
+        .lanyard-stage { width: 100%; height: clamp(430px, 125vw, 520px); gap: clamp(8px, 3vw, 22px); }
+        .lanyard-rig { flex-basis: clamp(128px, 42vw, 194px); width: clamp(128px, 42vw, 194px); }
+        .lanyard-ribbon { top: -148px; }
+        .lanyard-badge { top: 164px; padding: 12px 11px 11px; border-radius: 15px; }
+        .badge-avatar { width: clamp(56px, 19vw, 76px); height: clamp(70px, 24vw, 94px); }
+        .badge-qr-frame { width: 62px; height: 62px; }
+        .lanyard-caption { font-size: 8px; letter-spacing: .1em; }
+        .section-head { align-items: flex-start; flex-direction: column; }
+        .roster-row { grid-template-columns: 1fr auto; gap: 10px 18px; padding-block: 20px; }
+        .roster-label { grid-column: 1; }
+        .roster-name { grid-column: 1; }
+        .roster-count { grid-column: 2; grid-row: 1 / span 2; }
+        .dates-table th { padding-inline: 5px; font-size: 8px; }
+        .dates-table td { padding: 18px 5px; font-size: 10px; }
+        .dates-table td:first-child { font-size: 18px; }
+        .close-top { align-items: flex-start; flex-direction: column; }
+        .close-actions { padding: 0; }
+        .close-footer { flex-wrap: wrap; }
+        .close-wordmark { margin-bottom: -8vw; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+        .motion-enabled .reveal { opacity: 1; transform: none; }
+        .portal-art { transform: scale(1) !important; }
+        .portal-duotone { opacity: .25 !important; }
+        .portal-panel-left { transform: translateX(-205%) !important; }
+        .portal-panel-right { transform: translateX(205%) !important; }
+        .portal-wordmark { transform: scale(1.25) !important; letter-spacing: -.06em !important; }
+        .portal-wordmark-first { transform: translateX(max(-50%, -2.5vw)) !important; }
+        .portal-wordmark-last { transform: translateX(min(50%, 2.5vw)) !important; }
+        .portal-dot-amber { transform: translate(calc(-50% - 38vw), calc(-50% + 32vh)) !important; }
+        .portal-dot-teal { transform: translate(calc(-50% + 38vw), calc(-50% - 32vh)) !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-nav">
+      <a class="wordmark" href="#home" aria-label="P Ravi Kiran home"><span>P RAVI KIRAN</span><span class="wordmark-period" aria-hidden="true">.</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#statement">About</a>
+        <a href="#releases">Projects</a>
+        <a href="#roster">Journey</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Hire me</a>
+    </header>
+
+    <main id="home">
+      <section class="portal" aria-label="P Ravi Kiran portal introduction">
+        <div class="portal-stage">
+          <img class="portal-photo" alt="" aria-hidden="true" src="./hero-photo.jpg">
+          <img class="portal-art" alt="Abstract dark architectural forms with subtle amber and teal linework" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Crect width='1600' height='1000' fill='%23101317'/%3E%3Cpath d='M0 760 460 190l310 160 320-255 510 290v615H0Z' fill='%23171c20'/%3E%3Cpath d='m80 840 390-510 274 144 320-258 424 245' fill='none' stroke='%23313a3d' stroke-width='2'/%3E%3Cpath d='M0 890h1600M0 920h1600M190 0v1000M250 0v1000M1380 0v1000' stroke='%23252c30' stroke-width='1'/%3E%3Cpath d='m400 700 210-250 200 102 230-210' fill='none' stroke='%23E8913C' stroke-opacity='.28' stroke-width='2'/%3E%3Ccircle cx='800' cy='510' r='172' fill='none' stroke='%232E6B72' stroke-opacity='.38' stroke-width='2'/%3E%3Ccircle cx='800' cy='510' r='238' fill='none' stroke='%23252d30' stroke-width='1'/%3E%3C/svg%3E">
+          <div class="portal-duotone" aria-hidden="true"></div>
+          <div class="portal-veil" aria-hidden="true"></div>
+          <div class="portal-panel portal-panel-left" aria-hidden="true"></div>
+          <div class="portal-panel portal-panel-right" aria-hidden="true"></div>
+          <span class="portal-dot portal-dot-amber" aria-hidden="true"></span>
+          <span class="portal-dot portal-dot-teal" aria-hidden="true"></span>
+          <div class="portal-center" aria-hidden="true"><div class="portal-wordmark"><span class="portal-wordmark-first">P RAVI</span><span class="portal-wordmark-last">KIRAN</span></div></div>
+          <div class="corner-meta corner-top-left">Independent creative label</div>
+        </div>
+      </section>
+
+      <section class="statement" id="statement" aria-labelledby="statement-title">
+        <span class="statement-index" aria-hidden="true">01</span>
+        <div class="orbit-image" aria-hidden="true"><img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Crect width='500' height='500' fill='%23101317'/%3E%3Ccircle cx='250' cy='250' r='180' fill='none' stroke='%232E6B72' stroke-width='2'/%3E%3Cpath d='M50 350 220 70l80 180 140-100' fill='none' stroke='%23E8913C' stroke-width='2'/%3E%3C/svg%3E"></div>
+        <div class="statement-inner reveal">
+          <p class="eyebrow">01 / The point of view</p>
+          <h1 class="statement-copy" id="statement-title">A home for ideas that move with <em>intention</em>—made to be felt, remembered, and heard.</h1>
+        </div>
+      </section>
+
+      <section class="releases container" id="releases" aria-labelledby="releases-title">
+        <div class="releases-layout">
+          <div class="releases-copy reveal">
+            <p class="eyebrow">02 / Releases</p>
+            <h2 id="releases-title">A catalogue in the making.</h2>
+            <p>A personal pass for the ideas in progress. Catalogue releases and label details will be added as they take shape.</p>
+            <div class="release-actions">
+              <a class="action-link" href="#roster">Meet the roster <span aria-hidden="true">↗</span></a>
+              <a class="action-link" href="#dates">View dates <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <div class="lanyard-column reveal">
+            <div class="lanyard-stage" role="group" aria-label="Interactive P Ravi Kiran identity pass, front and back views" aria-describedby="lanyard-hint">
+              <article class="lanyard-rig lanyard-rig-front" aria-label="Front of the P Ravi Kiran identity pass" tabindex="0">
+                <div class="lanyard-sway">
+                  <div class="lanyard-ribbon" aria-hidden="true"></div>
+                  <svg class="lanyard-hardware" viewBox="0 0 68 112" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="lanyard-metal-front" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stop-color="#777e84"/><stop offset=".24" stop-color="#f4f6f7"/><stop offset=".5" stop-color="#aeb4b9"/><stop offset=".76" stop-color="#f8f9fa"/><stop offset="1" stop-color="#70777d"/>
+                      </linearGradient>
+                    </defs>
+                    <rect x="22" y="4" width="24" height="32" rx="4" fill="url(#lanyard-metal-front)" stroke="#62686d" stroke-width="1.5"/>
+                    <rect x="28" y="10" width="12" height="20" rx="2" fill="#22272b" stroke="#f1f3f4" stroke-opacity=".6"/>
+                    <ellipse cx="34" cy="49" rx="13" ry="16" fill="none" stroke="url(#lanyard-metal-front)" stroke-width="5"/>
+                    <path d="M25 63c-5 5-7 12-4 18l7 14c3 6 10 8 15 4l5-4-4-5-5 3c-2 2-5 1-6-1l-7-13c-1-2 0-5 2-7l5-4-4-6-4 1Z" fill="url(#lanyard-metal-front)" stroke="#62686d" stroke-width="1.2"/>
+                    <path d="m40 88 8 7-5 9c-2 4-7 6-12 5l-4-1 2-6 3 1c2 0 4 0 5-2l3-5-5-4 5-4Z" fill="url(#lanyard-metal-front)" stroke="#62686d" stroke-width="1.2"/>
+                  </svg>
+                  <div class="lanyard-badge lanyard-badge-front">
+                    <span class="badge-hole" aria-hidden="true"></span>
+                    <div class="badge-top">
+                      <span class="badge-brand">PRK<small>INDEPENDENT LABEL</small></span>
+                      <span class="badge-event">P RAVI KIRAN<br>IDENTITY PASS</span>
+                    </div>
+                    <img class="badge-avatar" src="hero-photo.jpg" alt="Portrait of P Ravi Kiran">
+                    <div class="badge-identity">
+                      <h3>P Ravi Kiran</h3>
+                      <p>Independent Label<br>Creative Technologist</p>
+                    </div>
+                    <div class="badge-bottom"><span>IDENTITY PASS / 001</span><strong>PRK</strong></div>
+                    <svg class="badge-contours" viewBox="0 0 220 100" fill="none" aria-hidden="true">
+                      <path d="M-8 80c28-30 47-29 70-3s43 27 67-1 48-31 94-7" stroke="white" stroke-width="1"/>
+                      <path d="M-10 91c30-30 49-28 72-3s43 27 67-1 48-30 95-7" stroke="white" stroke-width="1"/>
+                      <path d="M5 102c26-26 43-25 64-2s39 24 61-1 45-27 84-6" stroke="white" stroke-width="1"/>
+                      <path d="M25 69c21-21 36-20 54-1s33 20 52-1 39-22 66-6" stroke="white" stroke-width="1"/>
+                    </svg>
+                  </div>
+                </div>
+              </article>
+
+              <article class="lanyard-rig lanyard-rig-back" aria-label="Back of the P Ravi Kiran identity pass" tabindex="0">
+                <div class="lanyard-sway">
+                  <div class="lanyard-ribbon" aria-hidden="true"></div>
+                  <svg class="lanyard-hardware" viewBox="0 0 68 112" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="lanyard-metal-back" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stop-color="#777e84"/><stop offset=".24" stop-color="#f4f6f7"/><stop offset=".5" stop-color="#aeb4b9"/><stop offset=".76" stop-color="#f8f9fa"/><stop offset="1" stop-color="#70777d"/>
+                      </linearGradient>
+                    </defs>
+                    <rect x="22" y="4" width="24" height="32" rx="4" fill="url(#lanyard-metal-back)" stroke="#62686d" stroke-width="1.5"/>
+                    <rect x="28" y="10" width="12" height="20" rx="2" fill="#22272b" stroke="#f1f3f4" stroke-opacity=".6"/>
+                    <ellipse cx="34" cy="49" rx="13" ry="16" fill="none" stroke="url(#lanyard-metal-back)" stroke-width="5"/>
+                    <path d="M25 63c-5 5-7 12-4 18l7 14c3 6 10 8 15 4l5-4-4-5-5 3c-2 2-5 1-6-1l-7-13c-1-2 0-5 2-7l5-4-4-6-4 1Z" fill="url(#lanyard-metal-back)" stroke="#62686d" stroke-width="1.2"/>
+                    <path d="m40 88 8 7-5 9c-2 4-7 6-12 5l-4-1 2-6 3 1c2 0 4 0 5-2l3-5-5-4 5-4Z" fill="url(#lanyard-metal-back)" stroke="#62686d" stroke-width="1.2"/>
+                  </svg>
+                  <div class="lanyard-badge lanyard-badge-back">
+                    <span class="badge-hole" aria-hidden="true"></span>
+                    <div class="badge-top">
+                      <span class="badge-brand">PRK<small>INDEPENDENT LABEL</small></span>
+                      <span class="badge-event">P RAVI KIRAN<br>IDENTITY PASS</span>
+                    </div>
+                    <div class="badge-back-center">
+                      <h3 class="badge-team-mark">P RAVI KIRAN</h3>
+                      <p class="badge-department">INDEPENDENT LABEL</p>
+                    </div>
+                    <div class="badge-qr-wrap">
+                      <div class="badge-qr-frame">
+                        <svg class="badge-qr" viewBox="0 0 64 64" aria-hidden="true">
+                          <rect width="64" height="64" fill="white"/>
+                          <path fill="#a90e1a" d="M4 4h20v20H4zm4 4v12h12V8zm32-4h20v20H40zm4 4v12h12V8zM4 40h20v20H4zm4 4v12h12V44zM30 4h5v5h-5zm0 10h7v5h-7zm-6 9h6v6h-6zm14 3h7v6h-7zm10 0h8v5h-8zm-20 7h6v7h-6zm9 2h7v5h-7zm12 6h7v7h-7zm-19 2h5v6h-5zm9 7h6v5h-6zm13 7h8v5h-8zm-18 2h6v5h-6zm-5-6h5v5h-5z"/>
+                        </svg>
+                      </div>
+                      <span class="badge-qr-label">SCAN FOR THE STORY</span>
+                    </div>
+                    <div class="badge-back-footer"><span>CREATIVE<br>TECHNOLOGIST</span><strong>001</strong></div>
+                    <svg class="badge-contours" viewBox="0 0 220 100" fill="none" aria-hidden="true">
+                      <path d="M-8 80c28-30 47-29 70-3s43 27 67-1 48-31 94-7" stroke="white" stroke-width="1"/>
+                      <path d="M-10 91c30-30 49-28 72-3s43 27 67-1 48-30 95-7" stroke="white" stroke-width="1"/>
+                      <path d="M5 102c26-26 43-25 64-2s39 24 61-1 45-27 84-6" stroke="white" stroke-width="1"/>
+                      <path d="M25 69c21-21 36-20 54-1s33 20 52-1 39-22 66-6" stroke="white" stroke-width="1"/>
+                    </svg>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="lanyard-caption small-type" id="lanyard-hint">
+              <span>Front / Back</span>
+              <span>Point to tilt · drag to swing · release to settle</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="roster" id="roster" aria-labelledby="roster-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><p class="eyebrow">03 / Roster</p><h2 id="roster-title">People behind it.</h2></div>
+            <p class="section-note small-type">Names and counts not provided</p>
+          </div>
+          <div class="roster-row reveal">
+            <span class="roster-label eyebrow">Roster update</span>
+            <h3 class="roster-name">Artist details pending</h3>
+            <span class="roster-count small-type">— artists</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="dates" id="dates" aria-labelledby="dates-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><p class="eyebrow">04 / Dates</p><h2 id="dates-title">On the horizon.</h2></div>
+            <p class="section-note small-type">No dates supplied</p>
+          </div>
+          <table class="dates-table reveal">
+            <thead><tr><th scope="col">Date</th><th scope="col">Event</th><th scope="col">Location</th></tr></thead>
+            <tbody><tr><td>To be announced</td><td>Upcoming dates will be listed here</td><td>—</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="close" id="contact">
+        <div class="container">
+          <div class="close-top reveal">
+            <div class="close-copy">
+              <p class="eyebrow">05 / Open channel</p>
+              <h2>Good work starts with a conversation.</h2>
+              <p>Contact details and label links can be added when provided.</p>
+            </div>
+            <div class="close-actions">
+              <a class="action-link" href="#home">Back to portal <span aria-hidden="true">↗</span></a>
+              <a class="action-link" href="#contact">Hire me <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="close-footer small-type"><span>P RAVI KIRAN · INDEPENDENT LABEL</span><span>Catalogue details pending</span><span>© <span id="year"></span></span></div>
+        </div>
+        <div class="close-wordmark" aria-hidden="true">P RAVI <span>KIRAN.</span></div>
+      </footer>
+    </main>
+
+    <script>
+      (() => {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        document.getElementById('year').textContent = String(new Date().getFullYear())
+
+        if (!reducedMotion) {
+          document.documentElement.classList.add('motion-enabled', 'portal-js')
+          document.querySelectorAll('.reveal').forEach((element) => {
+            const observer = new IntersectionObserver(([entry]) => {
+              if (entry.isIntersecting) {
+                element.classList.add('is-visible')
+                observer.unobserve(element)
+              }
+            }, { threshold: .15 })
+            observer.observe(element)
+          })
+
+          const portal = document.querySelector('.portal')
+          const art = document.querySelector('.portal-art')
+          const wash = document.querySelector('.portal-duotone')
+          const leftPanel = document.querySelector('.portal-panel-left')
+          const rightPanel = document.querySelector('.portal-panel-right')
+          const title = document.querySelector('.portal-wordmark')
+          const first = document.querySelector('.portal-wordmark-first')
+          const last = document.querySelector('.portal-wordmark-last')
+          const amberDot = document.querySelector('.portal-dot-amber')
+          const tealDot = document.querySelector('.portal-dot-teal')
+          const statement = document.querySelector('.statement')
+          const orbit = document.querySelector('.orbit-image')
+          const outlineIndex = document.querySelector('.statement-index')
+          let framePending = false
+
+          const clamp = (n, min, max) => Math.min(max, Math.max(min, n))
+          const render = () => {
+            framePending = false
+            const rect = portal.getBoundingClientRect()
+            const range = portal.offsetHeight - window.innerHeight
+            const p = range > 0 ? clamp(-rect.top / range, 0, 1) : 1
+            const panelShift = 210 * p
+            const cornerX = window.innerWidth * .38 * p
+            const cornerY = window.innerHeight * .32 * p
+            const scale = 1 + .25 * p
+            const stageWidth = portal.clientWidth
+            const edgeInset = Math.min(58, Math.max(12, stageWidth * .03))
+
+            leftPanel.style.transform = `translate3d(-${panelShift}%, 0, 0)`
+            rightPanel.style.transform = `translate3d(${panelShift}%, 0, 0)`
+            art.style.transform = `scale(${1.15 - .15 * p})`
+            wash.style.opacity = String(.25 * p)
+            title.style.transform = `scale(${scale})`
+            title.style.letterSpacing = `${-.02 - .04 * p}em`
+            title.style.opacity = String(1 - .9 * p)
+            const splitLimit = Math.max(0, (stageWidth - edgeInset * 2 - title.offsetWidth * scale) / (2 * scale))
+            const firstShift = Math.min(first.offsetWidth * .5 * p, splitLimit)
+            const lastShift = Math.min(last.offsetWidth * .5 * p, splitLimit)
+            first.style.transform = `translate3d(${-firstShift}px, 0, 0)`
+            last.style.transform = `translate3d(${lastShift}px, 0, 0)`
+            amberDot.style.transform = `translate3d(calc(-50% - ${cornerX}px), calc(-50% + ${cornerY}px), 0)`
+            tealDot.style.transform = `translate3d(calc(-50% + ${cornerX}px), calc(-50% - ${cornerY}px), 0)`
+
+            const statementRect = statement.getBoundingClientRect()
+            const drift = clamp((window.innerHeight - statementRect.top) / (window.innerHeight + statementRect.height), 0, 1)
+            orbit.style.transform = `translate3d(0, ${-50 + drift * 100}px, 0) rotate(${drift * 12 - 6}deg)`
+            outlineIndex.style.transform = `translate3d(0, ${drift * -32}px, 0)`
+          }
+          const queueRender = () => {
+            if (framePending) return
+            framePending = true
+            requestAnimationFrame(render)
+          }
+          window.addEventListener('scroll', queueRender, { passive: true })
+          window.addEventListener('resize', queueRender, { passive: true })
+          render()
+        }
+
+        const stage = document.querySelector('.lanyard-stage')
+        if (stage) {
+          const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
+          const rigs = [...stage.querySelectorAll('.lanyard-rig')]
+          const states = rigs.map((rig, index) => ({
+            rig,
+            phase: index * 1.15,
+            tiltX: 0,
+            tiltY: 0,
+            swing: 0,
+            bob: 0,
+            dragX: 0,
+            dragY: 0,
+            velocity: { tiltX: 0, tiltY: 0, swing: 0, bob: 0, dragX: 0, dragY: 0 },
+            keyX: 0,
+            keyY: 0
+          }))
+          const pointer = { x: 0, y: 0, inside: false }
+          let drag = null
+          let visible = !('IntersectionObserver' in window)
+          let frame = 0
+          let lastTime = 0
+          let elapsed = 0
+
+          const requestFrame = () => {
+            if (visible && !frame) frame = requestAnimationFrame(render)
+          }
+          const spring = (state, key, target, delta) => {
+            const velocity = state.velocity[key]
+            const acceleration = (target - state[key]) * 58 - velocity * 14
+            state.velocity[key] = velocity + acceleration * delta
+            state[key] += state.velocity[key] * delta
+          }
+          const render = (time) => {
+            frame = 0
+            const delta = lastTime ? Math.min((time - lastTime) / 1000, .032) : 0
+            lastTime = time
+            elapsed += delta
+
+            states.forEach((state) => {
+              const isDragging = drag && drag.state === state
+              const ambient = reducedMotion ? 0 : Math.sin(elapsed * 1.25 + state.phase) * 2.2
+              const bob = reducedMotion ? 0 : Math.sin(elapsed * 1.7 + state.phase) * 2.5
+              const targetTiltX = clamp((pointer.inside ? -pointer.y * 7 : 0) + state.keyX + (isDragging ? -(drag.y - drag.startY) * .075 : 0), -11, 11)
+              const targetTiltY = clamp((pointer.inside ? pointer.x * 9 : 0) + state.keyY + (isDragging ? (drag.x - drag.startX) * .08 : 0), -13, 13)
+              const targetDragX = isDragging ? clamp(drag.x - drag.startX, -72, 72) : 0
+              const targetDragY = isDragging ? clamp(drag.y - drag.startY, -48, 48) : 0
+              const targetSwing = ambient + (isDragging ? (drag.x - drag.startX) / state.rig.clientWidth * 11 : pointer.inside ? pointer.x * 1.5 : 0)
+
+              spring(state, 'tiltX', targetTiltX, delta)
+              spring(state, 'tiltY', targetTiltY, delta)
+              spring(state, 'swing', targetSwing, delta)
+              spring(state, 'bob', bob, delta)
+              spring(state, 'dragX', targetDragX, delta)
+              spring(state, 'dragY', targetDragY, delta)
+
+              state.rig.style.setProperty('--tilt-x', `${state.tiltX.toFixed(2)}deg`)
+              state.rig.style.setProperty('--tilt-y', `${state.tiltY.toFixed(2)}deg`)
+              state.rig.style.setProperty('--drag-x', `${state.dragX.toFixed(2)}px`)
+              state.rig.style.setProperty('--drag-y', `${state.dragY.toFixed(2)}px`)
+              state.rig.style.setProperty('--swing', `${state.swing.toFixed(2)}deg`)
+              state.rig.style.setProperty('--bob', `${state.bob.toFixed(2)}px`)
+            })
+
+            const settling = states.some((state) => Object.keys(state.velocity).some((key) => Math.abs(state.velocity[key]) > .02))
+            if (!reducedMotion || pointer.inside || drag || settling) requestFrame()
+            else lastTime = 0
+          }
+          const updatePointer = (event) => {
+            const bounds = stage.getBoundingClientRect()
+            pointer.x = clamp(((event.clientX - bounds.left) / bounds.width - .5) * 2, -1, 1)
+            pointer.y = clamp(((event.clientY - bounds.top) / bounds.height - .5) * 2, -1, 1)
+            pointer.inside = true
+            requestFrame()
+          }
+          const endDrag = (event) => {
+            if (!drag || (event && event.pointerId !== drag.id)) return
+            drag = null
+            stage.classList.remove('is-dragging')
+            pointer.inside = false
+            requestFrame()
+          }
+
+          stage.addEventListener('pointermove', (event) => {
+            updatePointer(event)
+            if (drag && drag.id === event.pointerId) {
+              drag.x = event.clientX
+              drag.y = event.clientY
+            }
+          }, { passive: true })
+          stage.addEventListener('pointerleave', () => {
+            if (drag) return
+            pointer.inside = false
+            requestFrame()
+          })
+          stage.addEventListener('pointerdown', (event) => {
+            const rig = event.target.closest('.lanyard-rig')
+            if (!rig || event.button !== 0) return
+            const state = states.find((item) => item.rig === rig)
+            if (!state) return
+            drag = { id: event.pointerId, state, startX: event.clientX, startY: event.clientY, x: event.clientX, y: event.clientY }
+            stage.classList.add('is-dragging')
+            stage.setPointerCapture(event.pointerId)
+            requestFrame()
+          })
+          stage.addEventListener('pointerup', endDrag)
+          stage.addEventListener('pointercancel', endDrag)
+          stage.addEventListener('lostpointercapture', endDrag)
+          window.addEventListener('blur', () => endDrag())
+
+          stage.addEventListener('keydown', (event) => {
+            const rig = event.target.closest('.lanyard-rig')
+            const state = states.find((item) => item.rig === rig)
+            if (!state) return
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+              event.preventDefault()
+              state.keyX = event.key === 'ArrowUp' ? 7 : event.key === 'ArrowDown' ? -7 : 0
+              state.keyY = event.key === 'ArrowRight' ? 9 : event.key === 'ArrowLeft' ? -9 : 0
+              requestFrame()
+            }
+          })
+          stage.addEventListener('keyup', (event) => {
+            if (!event.key.startsWith('Arrow')) return
+            states.forEach((state) => { state.keyX = 0; state.keyY = 0 })
+            requestFrame()
+          })
+          stage.addEventListener('focusout', (event) => {
+            if (event.target.matches('.lanyard-rig')) {
+              const state = states.find((item) => item.rig === event.target)
+              if (state) { state.keyX = 0; state.keyY = 0; requestFrame() }
+            }
+          })
+
+          if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(([entry]) => {
+              visible = entry.isIntersecting
+              if (visible) requestFrame()
+              else if (frame) { cancelAnimationFrame(frame); frame = 0; lastTime = 0 }
+            }, { threshold: .01 })
+            observer.observe(stage)
+          } else {
+            requestFrame()
+          }
+        }
+      })()
+    </script>
+  </body>
+</html>

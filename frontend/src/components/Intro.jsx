@@ -1,93 +1,80 @@
-import { useState } from 'react'
-import { ArrowUpRight, Check } from 'lucide-react'
+import { ArrowUpRight, Sparkles, Layers, Cpu, Eye } from 'lucide-react'
 import { profile } from '../data'
-import CharacterAvatar from './CharacterAvatar'
-import TiltCard from './TiltCard'
 import MagneticButton from './MagneticButton'
+import TiltCard from './TiltCard'
 
+/**
+ * Senior Designer Intro Component
+ * - 01 / Philosophy & Ethos
+ * - 3 Strategic Pillars (Architectural Rigor, Sensory UI, AI-Native Workflows)
+ * - Authentic quote card with 3D tilt
+ * - Magnetic social links
+ */
 export default function Intro() {
-  const [speaking, setSpeaking] = useState(true)
+  const pillarIcons = [<Layers size={20} />, <Eye size={20} />, <Cpu size={20} />]
 
   return (
-    <section className="intro-grid section-pad" id="about">
-      <div className="intro-copy">
-        <p className="eyebrow font-mono-micro">01 — A little about me</p>
-        <h2 className="section-title-syne">
-          {profile.introTitle[0]} <em className="serif-italic-accent">{profile.introTitle[1]}</em>
-        </h2>
-        <p className="body-large">{profile.about}</p>
+    <section className="intro-senior-section section-pad" id="about">
+      {/* Section Header */}
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow font-mono-micro">01 — Philosophy & Ethos</p>
+          <h2 className="section-title-syne">
+            Driven by <em className="serif-italic-accent">curiosity</em>,
+            <br />
+            grounded in <em className="serif-italic-accent">practice.</em>
+          </h2>
+        </div>
+        <div className="quote-pill font-mono-micro">
+          <Sparkles size={13} className="text-[#141414]" />
+          <span>&ldquo;{profile.quote}&rdquo;</span>
+        </div>
+      </div>
 
-        <div className={`about-intro${speaking ? ' speaking' : ''}`}>
-          <div className="about-portrait">
-            <CharacterAvatar />
-          </div>
-          <div>
-            <span className="font-mono-micro">{speaking ? 'PORTRAIT ANIMATION ACTIVE' : 'ANIMATION PAUSED'}</span>
-            <p>{profile.about}</p>
-            <button
-              type="button"
-              className="about-intro-toggle font-mono-micro"
-              aria-pressed={speaking}
-              onClick={() => setSpeaking((value) => !value)}
-            >
-              {speaking ? 'Pause animation' : 'Play animation'} <ArrowUpRight size={14} aria-hidden="true" />
-            </button>
-          </div>
+      {/* 3 Core Architecture Pillars */}
+      <div className="pillars-grid">
+        {profile.pillars.map((pillar, idx) => (
+          <TiltCard key={pillar.title} maxRotation={6} className="pillar-tilt-wrap">
+            <div className="pillar-card">
+              <div className="pillar-header font-mono-micro">
+                <span className="pillar-num">{pillar.num}</span>
+                <span className="pillar-tag">{pillar.tag}</span>
+                <span className="pillar-icon" aria-hidden="true">{pillarIcons[idx]}</span>
+              </div>
+              <h3 className="pillar-title font-syne">{pillar.title}</h3>
+              <p className="pillar-desc">{pillar.description}</p>
+            </div>
+          </TiltCard>
+        ))}
+      </div>
+
+      {/* Narrative Synthesis & Links Bar */}
+      <div className="intro-synthesis-bar">
+        <div className="traits-cluster font-mono-micro">
+          {profile.traits.map((trait) => (
+            <span key={trait} className="trait-tag">
+              #{trait.toLowerCase().replace(/\s+/g, '-')}
+            </span>
+          ))}
         </div>
 
-        {/* Magnetic Social Links Row */}
-        <div className="social-row">
-          <MagneticButton href="#contact" className="social-magnetic-pill">
-            Resume <ArrowUpRight size={14} aria-hidden="true" />
-          </MagneticButton>
-          {profile.github ? (
+        <div className="social-links-row font-mono-micro">
+          {profile.github && (
             <MagneticButton href={profile.github} target="_blank" rel="noreferrer" className="social-magnetic-pill">
               GitHub <ArrowUpRight size={13} aria-hidden="true" />
             </MagneticButton>
-          ) : null}
-          {profile.linkedin ? (
+          )}
+          {profile.linkedin && (
             <MagneticButton href={profile.linkedin} target="_blank" rel="noreferrer" className="social-magnetic-pill">
               LinkedIn <ArrowUpRight size={13} aria-hidden="true" />
             </MagneticButton>
-          ) : null}
+          )}
+          {profile.email && (
+            <MagneticButton href={`mailto:${profile.email}`} className="social-magnetic-pill">
+              Email <ArrowUpRight size={13} aria-hidden="true" />
+            </MagneticButton>
+          )}
         </div>
-      </div>
-
-      {/* Hanging ID-Badge Card with Framer Motion 3D Tilt (stiffness: 300, damping: 20) */}
-      <div className="id-card-wrap">
-        <div className="lanyard" />
-        <TiltCard maxRotation={15} className="id-card-tilt-container">
-          <div className="id-card">
-            <div className="clip" />
-            <div className="id-top font-mono-micro">
-              <span>DEVELOPER PASS</span>
-              <span>NO. 0108</span>
-            </div>
-            <div className="id-photo">
-              <div className="photo-shape font-mono-micro">{profile.monogram}</div>
-            </div>
-            <div className="id-name">
-              {profile.idLines[0]}
-              <br />
-              {profile.idLines[1]}
-            </div>
-            <div className="id-role font-mono-micro">FULL STACK · AI · WEB</div>
-            <div className="barcode font-mono-micro">|||| ||| |||| | ||| || ||||</div>
-          </div>
-        </TiltCard>
-      </div>
-
-      <div className="facts">
-        <p className="eyebrow font-mono-micro">What I am</p>
-        <ul>
-          {profile.traits.map((trait) => (
-            <li key={trait}>
-              <Check size={15} aria-hidden="true" />
-              {trait}
-            </li>
-          ))}
-        </ul>
-        <blockquote className="serif-quote">“{profile.quote}”</blockquote>
       </div>
     </section>
   )

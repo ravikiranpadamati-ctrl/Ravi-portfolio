@@ -18,27 +18,10 @@ export default function SkyEliteHero(): React.JSX.Element {
 
   const navItems: string[] = ['Start', 'Story', 'Rates', 'Benefits', 'FAQ']
 
-  // Reliable hosted private jet & aviation video URLs
-  const videoUrl = 'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-clouds-from-an-airplane-window-41857-large.mp4'
-  const fallbackVideoUrl = 'https://assets.mixkit.co/videos/preview/mixkit-flying-over-the-clouds-in-an-airplane-window-31804-large.mp4'
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
-        {/* Video Background (Autoplay, Muted, Loop, playsInline, covers 100vh) */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src={videoUrl} type="video/mp4" />
-          <source src={fallbackVideoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
+      <section className="relative h-screen overflow-hidden bg-gradient-to-br from-slate-100 via-gray-50 to-sky-100">
         {/* Content Wrapper */}
         <div className="relative h-full flex flex-col z-10">
           {/* Navigation Bar */}

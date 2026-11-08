@@ -28,7 +28,7 @@ export default function Footer() {
       <div className="footer-bottom font-mono-micro">
         <span>© {new Date().getFullYear()} {profile.name}</span>
         <span>Designed & built with creative craft</span>
-        <MagneticButton href="#top" className="back-to-top-link">
+        <MagneticButton href="#hero" className="back-to-top-link">
           Back to top ↑
         </MagneticButton>
       </div>

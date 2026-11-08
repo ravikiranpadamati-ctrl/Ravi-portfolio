@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { ArrowUpRight, Play, Pause } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { credentials, timeline } from '../data'
 import TiltCard from './TiltCard'
@@ -7,22 +7,11 @@ import TiltCard from './TiltCard'
 /**
  * Education & Coursework Component
  * - Verified credentials & coursework with intent.
- * - Dynamic moving timeline with auto-cycle animation, smooth sliding transitions,
- *   and manual year/slider controls.
+ * - Manually controlled timeline with smooth sliding transitions.
  */
 export default function Education() {
   const [active, setActive] = useState(timeline.length - 1)
-  const [isPlaying, setIsPlaying] = useState(true)
   const current = timeline[active]
-
-  // Smooth auto-advancing animation loop for coursework timeline
-  useEffect(() => {
-    if (!isPlaying) return
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % timeline.length)
-    }, 4000)
-    return () => clearInterval(timer)
-  }, [isPlaying])
 
   return (
     <section className="experience-grid section-pad" id="experience">
@@ -65,31 +54,11 @@ export default function Education() {
         </div>
       </TiltCard>
 
-      {/* 2. Moving Timeline with Auto-play & Smooth Animated Transitions */}
+      {/* 2. Manually controlled timeline with smooth animated transitions */}
       <TiltCard maxRotation={5} className="timeline-card-tilt">
-        <div
-          className="timeline-card"
-          onMouseEnter={() => setIsPlaying(false)}
-          onMouseLeave={() => setIsPlaying(true)}
-        >
+        <div className="timeline-card">
           <div className="timeline-header-row">
             <p className="eyebrow font-mono-micro">Education & progression</p>
-            <button
-              type="button"
-              className="timeline-play-toggle font-mono-micro"
-              onClick={() => setIsPlaying((p) => !p)}
-              aria-label={isPlaying ? 'Pause timeline animation' : 'Play timeline animation'}
-            >
-              {isPlaying ? (
-                <>
-                  <Pause size={10} /> Auto-moving
-                </>
-              ) : (
-                <>
-                  <Play size={10} /> Paused
-                </>
-              )}
-            </button>
           </div>
 
           <div className="timeline-years font-mono-micro">
@@ -98,10 +67,7 @@ export default function Education() {
                 key={item.year}
                 type="button"
                 className={index === active ? 'active' : ''}
-                onClick={() => {
-                  setIsPlaying(false)
-                  setActive(index)
-                }}
+                onClick={() => setActive(index)}
               >
                 {item.year}
               </button>
@@ -114,10 +80,7 @@ export default function Education() {
             max={timeline.length - 1}
             aria-label="Experience timeline slider"
             value={active}
-            onChange={(event) => {
-              setIsPlaying(false)
-              setActive(Number(event.target.value))
-            }}
+            onChange={(event) => setActive(Number(event.target.value))}
           />
 
           {/* Animated Course / Experience Timeline Content */}
