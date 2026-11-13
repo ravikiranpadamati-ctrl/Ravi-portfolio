@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 340" role="img" aria-labelledby="title desc">
+  <title id="title">Animated neural network orb</title>
+  <desc id="desc">A softly glowing violet network sphere with a light moving along its orbit.</desc>
+  <defs>
+    <radialGradient id="sphere" cx="34%" cy="27%" r="78%">
+      <stop offset="0" stop-color="#e4caff" stop-opacity=".3"/>
+      <stop offset=".2" stop-color="#a96cff" stop-opacity=".2"/>
+      <stop offset=".62" stop-color="#51258e" stop-opacity=".13"/>
+      <stop offset=".9" stop-color="#21132f" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#b67cff" stop-opacity=".16"/>
+    </radialGradient>
+    <radialGradient id="specular" cx="28%" cy="22%" r="68%">
+      <stop offset="0" stop-color="#fff" stop-opacity=".2"/>
+      <stop offset=".22" stop-color="#d9b7ff" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#a45aff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="atmosphere">
+      <stop offset=".52" stop-color="#a45aff" stop-opacity="0"/>
+      <stop offset=".78" stop-color="#a45aff" stop-opacity=".08"/>
+      <stop offset=".94" stop-color="#d2a7ff" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#a45aff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="orbit" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#a970ff" stop-opacity=".08"/>
+      <stop offset=".53" stop-color="#ce9aff" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#8b4cf6" stop-opacity=".12"/>
+    </linearGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <clipPath id="sphereClip"><circle cx="160" cy="166" r="94"/></clipPath>
+    <path id="orbitPath" d="M20 191 C44 97 259 57 299 143 C337 223 64 298 20 191Z"/>
+  </defs>
+
+  <ellipse cx="160" cy="170" rx="112" ry="105" fill="#8c4bdd" opacity=".12" filter="url(#soft)">
+    <animate attributeName="opacity" values=".07;.17;.07" dur="6s" repeatCount="indefinite"/>
+  </ellipse>
+  <circle cx="160" cy="166" r="96" fill="url(#atmosphere)" filter="url(#glow)"/>
+  <circle cx="160" cy="166" r="94" fill="url(#sphere)" stroke="#d8b7ff" stroke-opacity=".27" stroke-width=".75"/>
+  <circle cx="160" cy="166" r="93" fill="url(#specular)"/>
+  <ellipse cx="132" cy="112" rx="35" ry="13" fill="#e7d4ff" opacity=".035" transform="rotate(-31 132 112)" filter="url(#soft)"/>
+
+  <g clip-path="url(#sphereClip)" fill="none" stroke="#c9a0ff" stroke-opacity=".39" stroke-width=".75">
+    <path d="M60 116 92 99 125 112 157 91 190 108 222 96 254 120M54 143 83 132 112 145 145 126 179 143 211 126 258 148M53 174 85 161 116 176 148 155 181 174 214 156 264 180M57 204 90 191 121 207 153 185 188 205 218 187 259 212M69 232 100 219 130 235 163 214 195 232 224 216 249 237"/>
+    <path d="M60 116 54 143 53 174 57 204 69 232M92 99 83 132 85 161 90 191 100 219M125 112 112 145 116 176 121 207 130 235M157 91 145 126 148 155 153 185 163 214M190 108 179 143 181 174 188 205 195 232M222 96 211 126 214 156 218 187 224 216M254 120 258 148 264 180 259 212 249 237"/>
+    <path d="M60 116 112 145 157 91 211 126 254 120M83 132 145 126 190 108 258 148M54 143 116 176 179 143 264 180M53 174 121 207 181 174 259 212M57 204 130 235 188 205 249 237" opacity=".55"/>
+  </g>
+
+  <g fill="#ead8ff" filter="url(#glow)">
+    <circle cx="92" cy="99" r="2.2"><animate attributeName="r" values="1.7;3;1.7" dur="3.4s" repeatCount="indefinite"/></circle>
+    <circle cx="157" cy="91" r="2.5"><animate attributeName="r" values="2;3.7;2" dur="4.2s" repeatCount="indefinite"/></circle>
+    <circle cx="222" cy="96" r="2"><animate attributeName="opacity" values=".4;1;.4" dur="2.8s" repeatCount="indefinite"/></circle>
+    <circle cx="83" cy="132" r="2"><animate attributeName="opacity" values="1;.35;1" dur="3.8s" repeatCount="indefinite"/></circle>
+    <circle cx="145" cy="126" r="3.1"><animate attributeName="r" values="2.2;4.2;2.2" dur="3.2s" repeatCount="indefinite"/></circle>
+    <circle cx="211" cy="126" r="2.2"><animate attributeName="opacity" values=".4;1;.4" dur="3.6s" repeatCount="indefinite"/></circle>
+    <circle cx="85" cy="161" r="2.5"><animate attributeName="opacity" values="1;.4;1" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="181" cy="174" r="2.6"><animate attributeName="r" values="2;3.8;2" dur="3.5s" repeatCount="indefinite"/></circle>
+    <circle cx="121" cy="207" r="2.2"><animate attributeName="opacity" values=".35;1;.35" dur="3.3s" repeatCount="indefinite"/></circle>
+    <circle cx="188" cy="205" r="2.4"><animate attributeName="opacity" values="1;.4;1" dur="4.1s" repeatCount="indefinite"/></circle>
+    <circle cx="224" cy="216" r="1.8"><animate attributeName="r" values="1.5;2.7;1.5" dur="3s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <use href="#orbitPath" fill="none" stroke="#8d59d7" stroke-opacity=".33" stroke-width="1"/>
+  <use href="#orbitPath" fill="none" stroke="url(#orbit)" stroke-width="1.5" stroke-dasharray="72 420" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-492" dur="9s" repeatCount="indefinite"/>
+  </use>
+  <circle r="4.2" fill="#cf9aff" filter="url(#glow)">
+    <animateMotion dur="9s" repeatCount="indefinite" rotate="auto"><mpath href="#orbitPath"/></animateMotion>
+  </circle>
+  <circle r="7" fill="#bd82ff" opacity=".24" filter="url(#glow)">
+    <animateMotion dur="9s" repeatCount="indefinite" rotate="auto" keyPoints=".5;0" keyTimes="0;1" calcMode="linear"><mpath href="#orbitPath"/></animateMotion>
+    <animate attributeName="r" values="6;10;6" dur="2.2s" repeatCount="indefinite"/>
+  </circle>
+</svg>
